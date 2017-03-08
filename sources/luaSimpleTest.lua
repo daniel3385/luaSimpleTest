@@ -16,10 +16,9 @@ Test = {}
 
 function Test:new()
     local obj = {}
+    self.blocks = {}
     setmetatable(obj, self)
     self.__index = self
-    self.blocks = {}
-    self.results = {}
     self.ok = 0
     self.nok = 0
     return obj
@@ -45,7 +44,6 @@ function Test:runTests()
         print(v:getDescription())
         -- result of each block
         local results = v.results
-        print("dnaiel -> "..tostring(results))
         for i,v in ipairs(results) do
             print("Test "..i..": "..v)
         end
@@ -72,9 +70,9 @@ end
 Block = {}
 function Block:new()
     local obj = {}
+    self.results = {}
     setmetatable(obj, self)
     self.__index = self
-    self.results = {}
     self.ok = 0
     self.nok = 0
     return obj
@@ -106,10 +104,6 @@ function Block:equal(value1, value2)
         result = result..inRed(" ----> NOK")
         self:incrementNok()
     end
-    print("daniel: "..tostring(self.results))
-    print(result)
-    print(#self.results)
-    --self.results[#self.results + 1] = result
     table.insert(self.results, result)
 end
 
