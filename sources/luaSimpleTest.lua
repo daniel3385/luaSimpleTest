@@ -16,11 +16,11 @@ Test = {}
 
 function Test:new()
     local obj = {}
-    self.blocks = {}
     setmetatable(obj, self)
     self.__index = self
-    self.ok = 0
-    self.nok = 0
+    obj.blocks = {}
+    obj.ok = 0
+    obj.nok = 0
     return obj
 end
 
@@ -70,11 +70,11 @@ end
 Block = {}
 function Block:new()
     local obj = {}
-    self.results = {}
     setmetatable(obj, self)
     self.__index = self
-    self.ok = 0
-    self.nok = 0
+    obj.results = {}
+    obj.ok = 0
+    obj.nok = 0
     return obj
 end
 
