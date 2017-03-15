@@ -96,13 +96,31 @@ end
 
 function Block:equal(value1, value2)
     local result
-    result = "Expected "..tostring(value2).." got "..tostring(value1)
-    if value1 == value2 then
-        result = result.." ----> OK"
+    if type(value1) == "table" and type(value2) == "table" then
+        result = " {"
+        for k,v in pairs(value1) do
+            if value1[k] == value2[k] then
+                print("daniel1")
+                result = result .. tostring(k).."="..tostring(v)..","
+            else
+                print("daniel2")
+                result = result .. "----> Expected["..tostring(k).."]="..tostring(value2[k]).." got"..tostring(v)
+                result = result..inRed(" ----> NOK")
+                self:incrementNok()
+                break
+            end
+        end
         self:incrementOk()
+        result = result.."} ----> OK"
     else
-        result = result..inRed(" ----> NOK")
-        self:incrementNok()
+        result = "Expected "..tostring(value2).." got "..tostring(value1)
+        if value1 == value2 then
+            result = result.." ----> OK"
+            self:incrementOk()
+        else
+            result = result..inRed(" ----> NOK")
+            self:incrementNok()
+        end
     end
     table.insert(self.results, result)
 end
