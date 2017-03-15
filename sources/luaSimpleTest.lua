@@ -98,12 +98,14 @@ function Block:equal(value1, value2)
     local result
     if type(value1) == "table" and type(value2) == "table" then
         result = " {"
+        print(value1[1])
+        for k,v in pairs(value1) do
+            print(tostring(k).." "..tostring(v))
+        end
         for k,v in pairs(value1) do
             if value1[k] == value2[k] then
-                print("daniel1")
                 result = result .. tostring(k).."="..tostring(v)..","
             else
-                print("daniel2")
                 result = result .. "----> Expected["..tostring(k).."]="..tostring(value2[k]).." got"..tostring(v)
                 result = result..inRed(" ----> NOK")
                 self:incrementNok()
